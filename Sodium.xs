@@ -4878,7 +4878,7 @@ xor(self, msg, nonce, key)
                 key_size = crypto_stream_aes128ctr_KEYBYTES;
                 xor_function = &crypto_stream_aes128ctr_xor;
 #else
-croak("AES128CTR is only available in libsodium v1.0.14 and below");
+                croak("AES128CTR is only available in libsodium v1.0.14 and below");
 #endif
                 break;
             case 4:
