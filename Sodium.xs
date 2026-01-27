@@ -3864,7 +3864,6 @@ key(self, passphrase, salt, ... )
                     if ( outlen < 1 ) {
                         croak("Invalid bytes: %lld", outlen);
                     }
-                    outlen = outlen;
                 } else {
                     croak("Invalid argument: %s", key);
                 }
