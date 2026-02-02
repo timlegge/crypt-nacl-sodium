@@ -126,7 +126,7 @@ STATIC int dup_aead_aes256gcmstate(pTHX_ MAGIC *mg, CLONE_PARAMS *params)
     if ( new_state == NULL ) {
         croak("Could not allocate enough memory");
     }
-    new_state->ctx = sodium_malloc(sizeof_state);
+    new_state->ctx = (crypto_aead_aes256gcm_state *)sodium_malloc(sizeof_state);
     if ( new_state->ctx == NULL ) {
         croak("Could not allocate enough memory");
     }
@@ -1600,7 +1600,7 @@ hmacsha256_init(self, key)
         key_buf = (unsigned char *)SvPV(key, key_len);
 
         Newx(stream, 1, CryptNaClSodiumAuthHmacsha256Stream);
-        stream->state = sodium_malloc(sizeof(crypto_auth_hmacsha256_state));
+        stream->state = (crypto_auth_hmacsha256_state *)sodium_malloc(sizeof(crypto_auth_hmacsha256_state));
         if ( stream->state == NULL ) {
             croak("Could not allocate memory");
         }
@@ -1628,7 +1628,7 @@ hmacsha512_init(self, key)
         key_buf = (unsigned char *)SvPV(key, key_len);
 
         Newx(stream, 1, CryptNaClSodiumAuthHmacsha512Stream);
-        stream->state = sodium_malloc(sizeof(crypto_auth_hmacsha512_state));
+        stream->state = (crypto_auth_hmacsha512_state *)sodium_malloc(sizeof(crypto_auth_hmacsha512_state));
         if ( stream->state == NULL ) {
             croak("Could not allocate memory");
         }
@@ -3619,7 +3619,8 @@ init(self, ...)
         }
 
         Newx(stream, 1, CryptNaClSodiumGenerichashStream);
-        stream->state = sodium_malloc(sizeof(crypto_generichash_state) + (size_t)63U & ~(size_t) 63U);
+        stream->state = (crypto_generichash_state *)sodium_malloc(
+                    sizeof(crypto_generichash_state) + (size_t)63U & ~(size_t) 63U);
         if ( stream->state == NULL ) {
             croak("Could not allocate memory");
         }
@@ -4101,7 +4102,7 @@ sha256_init(self)
         PERL_UNUSED_VAR(self);
 
         Newx(stream, 1, CryptNaClSodiumHashSha256Stream);
-        stream->state = sodium_malloc(sizeof(crypto_hash_sha256_state));
+        stream->state = (crypto_hash_sha256_state *)sodium_malloc(sizeof(crypto_hash_sha256_state));
         if ( stream->state == NULL ) {
             croak("Could not allocate memory");
         }
@@ -4124,7 +4125,7 @@ sha512_init(self)
         PERL_UNUSED_VAR(self);
 
         Newx(stream, 1, CryptNaClSodiumHashSha512Stream);
-        stream->state = sodium_malloc(sizeof(crypto_hash_sha512_state));
+        stream->state = (crypto_hash_sha512_state *)sodium_malloc(sizeof(crypto_hash_sha512_state));
         if ( stream->state == NULL ) {
             croak("Could not allocate memory");
         }
