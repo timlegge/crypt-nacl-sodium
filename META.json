@@ -4,7 +4,7 @@
       "Alex J. G. Burzy\u0144ski <ajgb@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 6.014, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Dist::Zilla version 6.037, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -54,7 +54,7 @@
             "Test::Pod" : "1.41",
             "Test::Pod::Coverage" : "1.08",
             "Test::Pod::Spelling::CommonMistakes" : "1.000",
-            "Test::Spelling" : "0.12",
+            "Test::Spelling" : "0.17",
             "Test::Version" : "2.00"
          }
       },
@@ -73,9 +73,16 @@
             "CPAN::Meta" : "2.120900"
          },
          "requires" : {
+            "Config" : "0",
+            "Cwd" : "0",
+            "Devel::Peek" : "0",
             "ExtUtils::MakeMaker" : "0",
+            "File::Basename" : "0",
             "File::Spec" : "0",
-            "Test::More" : "0.88"
+            "Test::More" : "0.88",
+            "strict" : "0",
+            "utf8" : "0",
+            "warnings" : "0"
          }
       }
    },
@@ -85,7 +92,7 @@
          "version" : "2.000"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/cpan-authors/crypt-nacl-sodium/issues"
@@ -99,11 +106,11 @@
    },
    "version" : "2.000",
    "x_contributors" : [
-      "Chase Whitener <capoeirab@cpan.org>"
+      "Chase Whitener <capoeirab@cpan.org>",
       "Timothy Legge <timlegge@gmail.com>"
    ],
-   "x_generated_by_perl" : "v5.26.1",
-   "x_serialization_backend" : "Cpanel::JSON::XS version 4.19",
+   "x_generated_by_perl" : "v5.42.0",
+   "x_serialization_backend" : "Cpanel::JSON::XS version 4.40",
    "x_spdx_expression" : "Artistic-1.0-Perl OR GPL-1.0-or-later"
 }
 
