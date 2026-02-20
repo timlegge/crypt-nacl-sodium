@@ -55,9 +55,6 @@ push @defines, 'AES128CTR_IS_AVAILABLE' if has_aes128ctr();
 my %xsbuild = Alien::Base::Wrapper->new('Alien::Sodium')->mm_args2(
     "DEFINE" => join(" ", map { "-D$_" } @defines),
 );
-$xsbuild{"LIBS"}    = [ $alien_libs ];
-$xsbuild{"CCFLAGS"} = $alien_cflags;
-$xsbuild{"INC"}     = $alien_include;
 
 # use Data::Dumper;
 # print Dumper(\%xsbuild);
