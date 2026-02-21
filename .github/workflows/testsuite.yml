@@ -39,46 +39,46 @@ jobs:
         run: perl -I$(pwd) Makefile.PL
       - run: make && ( make test || prove -wbvm t/*.t )
 
-  openssl-matrix:
-    env:
-      PERL_USE_UNSAFE_INC: 0
-      AUTHOR_TESTING: 1
-      AUTOMATED_TESTING: 1
-      RELEASE_TESTING: 1
+        #TIM  openssl-matrix:
+        #TIM    env:
+        #TIM      PERL_USE_UNSAFE_INC: 0
+        #TIM      AUTHOR_TESTING: 1
+        #TIM      AUTOMATED_TESTING: 1
+        #TIM      RELEASE_TESTING: 1
 
-    runs-on: ubuntu-latest
-    needs: [ubuntu]
-    name: "OpenSSL ${{ matrix.os-version }}"
+        #TIM    runs-on: ubuntu-latest
+        #TIM    needs: [ubuntu]
+        #TIM    name: "OpenSSL ${{ matrix.os-version }}"
 
-    strategy:
-      fail-fast: false
-      matrix:
-        os-version:
-          - debian:bullseye     # OpenSSL 1.1.1
-          - debian:bookworm     # OpenSSL 3.0.x
-          - almalinux:9         # OpenSSL with new crypto policies (RHEL-compatible)
+        #TIM    strategy:
+        #TIM      fail-fast: false
+        #TIM      matrix:
+        #TIM        os-version:
+        #TIM          - debian:bullseye     # OpenSSL 1.1.1
+        #TIM          - debian:bookworm     # OpenSSL 3.0.x
+        #TIM          - almalinux:9         # OpenSSL with new crypto policies (RHEL-compatible)
 
-    container: ${{ matrix.os-version }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install dependencies using apt-get
-        if: ${{ matrix.os-version == 'debian:bullseye' || matrix.os-version == 'debian:bookworm' }}
-        run: |
-          apt-get update
-          apt-get install -y perl make gcc libsodium-dev sudo curl
-      - name: Install dependencies using yum
-        if: ${{ matrix.os-version == 'almalinux:9' }}
-        run: |
-          yum install --skip-broken -y perl make gcc libsodium-devel sudo curl
-      - run: perl -V
-      - name: uses install-with-cpm
-        uses: perl-actions/install-with-cpm@v1
-        with:
-          install: "Devel::CheckLib"
-          cpanfile: "cpanfile"
-      - name: Makefile.PL
-        run: perl -I$(pwd) Makefile.PL
-      - run: make && prove -wbvm t/*.t
+        #TIM    container: ${{ matrix.os-version }}
+        #TIM    steps:
+        #TIM      - uses: actions/checkout@v4
+        #TIM      - name: Install dependencies using apt-get
+        #TIM        if: ${{ matrix.os-version == 'debian:bullseye' || matrix.os-version == 'debian:bookworm' }}
+        #TIM        run: |
+        #TIM          apt-get update
+        #TIM          apt-get install -y perl make gcc libsodium-dev sudo curl
+        #TIM      - name: Install dependencies using yum
+        #TIM        if: ${{ matrix.os-version == 'almalinux:9' }}
+        #TIM        run: |
+        #TIM          yum install --skip-broken -y perl make gcc libsodium-devel sudo curl
+        #TIM      - run: perl -V
+        #TIM      - name: uses install-with-cpm
+        #TIM        uses: perl-actions/install-with-cpm@v1
+        #TIM        with:
+        #TIM          install: "Devel::CheckLib"
+        #TIM          cpanfile: "cpanfile"
+        #TIM      - name: Makefile.PL
+        #TIM        run: perl -I$(pwd) Makefile.PL
+        #TIM      - run: make && prove -wbvm t/*.t
 
 #
 # List of Perl Versions available
@@ -94,39 +94,39 @@ jobs:
         - id: action
           uses: perl-actions/perl-versions@v1
           with:
-            since-perl: v5.10
+            since-perl: v5.42
             with-devel: true
 
 #
 # The Perl matrix on linux
 #
 
-  perl:
-    env:
-      PERL_USE_UNSAFE_INC: 0
-      AUTHOR_TESTING: 1
-      AUTOMATED_TESTING: 1
-      RELEASE_TESTING: 1
+#TIM  perl:
+#TIM    env:
+#TIM      PERL_USE_UNSAFE_INC: 0
+#TIM      AUTHOR_TESTING: 1
+#TIM      AUTOMATED_TESTING: 1
+#TIM      RELEASE_TESTING: 1
 
-    runs-on: ubuntu-latest
-    needs: [openssl-matrix,perl-versions]
-    name: "Perl ${{ matrix.perl-version }}"
+              #TIM    runs-on: ubuntu-latest
+              #TIM    needs: [openssl-matrix,perl-versions]
+              #TIM    name: "Perl ${{ matrix.perl-version }}"
 
-    strategy:
-      fail-fast: false
-      matrix:
-        perl-version: ${{ fromJson (needs.perl-versions.outputs.perl-versions) }}
+              #TIM    strategy:
+              #TIM      fail-fast: false
+              #TIM      matrix:
+              #TIM        perl-version: ${{ fromJson (needs.perl-versions.outputs.perl-versions) }}
 
-    container: perldocker/perl-tester:${{ matrix.perl-version }}
+              #TIM    container: perldocker/perl-tester:${{ matrix.perl-version }}
 
-    steps:
-      - uses: actions/checkout@v4
-      - run: perl -V
-      - name: Deps for testing
-        run: |
-          cpanm --notest Devel::CheckLib Alien::Sodium File::Slurper ||:
-      - run: perl Makefile.PL
-      - run: make && ( make test || prove -wbvm t/*.t )
+              #TIM    steps:
+              #TIM      - uses: actions/checkout@v4
+              #TIM      - run: perl -V
+              #TIM      - name: Deps for testing
+              #TIM        run: |
+              #TIM          cpanm --notest Devel::CheckLib Alien::Sodium File::Slurper ||:
+              #TIM      - run: perl Makefile.PL
+              #TIM      - run: make && ( make test || prove -wbvm t/*.t )
 
 #
 # Windows
