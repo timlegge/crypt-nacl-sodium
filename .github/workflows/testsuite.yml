@@ -140,7 +140,7 @@ jobs:
       AUTOMATED_TESTING: 1
       RELEASE_TESTING: 0
 
-    needs: [openssl-matrix, perl-versions]
+    needs: [perl-versions]
     runs-on: windows-latest
 
     strategy:
