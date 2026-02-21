@@ -23,7 +23,7 @@ for my $file ( @files ) {
     # using multi-part API
     my $stream = $crypto_generichash->init( key => $key, bytes => 64 );
 
-    open(my $fh, $file);
+    open(my $fh, '<:raw', $file) or die $!;
     while ( sysread($fh, my $buf, 4096) ) {
         # add the chunk of data
         $stream->update( $buf );

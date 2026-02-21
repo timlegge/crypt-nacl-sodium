@@ -24,7 +24,7 @@ for my $file ( @files ) {
     # using multi-part API
     my $stream = $crypto_hash->sha256_init();
 
-    open(my $fh, $file) or die;
+    open(my $fh, '<:raw', $file) or die $!;
     while ( sysread($fh, my $buf, 4096) ) {
         # add the chunk of data
         $stream->update( $buf );
@@ -51,7 +51,7 @@ for my $file ( @files ) {
     # using multi-part API
     my $stream = $crypto_hash->sha512_init();
 
-    open(my $fh, $file) or die;
+    open(my $fh, '<:raw', $file) or die $!;
     while ( sysread($fh, my $buf, 4096) ) {
         # add the chunk of data
         $stream->update( $buf );
