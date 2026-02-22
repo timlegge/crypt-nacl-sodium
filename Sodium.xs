@@ -3664,7 +3664,7 @@ update(self, ...)
         for ( i = 1; i < items ; i++ ) {
             msg_buf = (unsigned char *)SvPV(ST(i), msg_len);
 
-            crypto_generichash_update(stream->state, msg_buf, msg_len);
+            crypto_generichash_update(stream->state, msg_buf, (unsigned long long) msg_len);
         }
 
         XSRETURN(1);
@@ -4168,7 +4168,7 @@ update(self, ...)
         for ( i = 1; i < items ; i++ ) {
             msg_buf = (unsigned char *)SvPV(ST(i), msg_len);
 
-            crypto_hash_sha256_update(stream->state, msg_buf, msg_len);
+            crypto_hash_sha256_update(stream->state, msg_buf, (unsigned long long) msg_len);
         }
 
         XSRETURN(1);
