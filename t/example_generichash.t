@@ -23,10 +23,10 @@ for my $file ( @files ) {
     # using multi-part API
     my $stream = $crypto_generichash->init( key => $key, bytes => 64 );
 
-    open(my $fh, '<:raw', $file) or die $!;
-    binmode($fh);
-    while ( sysread($fh, my $buf, 4096) ) {
-        # add the chunk of data
+    # Use the :crlf layer and REMOVE binmode and sysread
+    open(my $fh, '<:crlf', $file) or die $!;
+    
+    while ( read($fh, my $buf, 4096) ) { # Use read(), not sysread()
         $stream->update( $buf );
     }
     close($fh);
