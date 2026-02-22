@@ -25,6 +25,7 @@ for my $file ( @files ) {
     my $stream = $crypto_hash->sha256_init();
 
     open(my $fh, '<:raw', $file) or die $!;
+    binmode($fh);
     while ( sysread($fh, my $buf, 4096) ) {
         # add the chunk of data
         $stream->update( $buf );
@@ -52,6 +53,7 @@ for my $file ( @files ) {
     my $stream = $crypto_hash->sha512_init();
 
     open(my $fh, '<:raw', $file) or die $!;
+    binmode($fh);
     while ( sysread($fh, my $buf, 4096) ) {
         # add the chunk of data
         $stream->update( $buf );

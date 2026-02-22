@@ -24,6 +24,7 @@ for my $file ( @files ) {
     my $stream = $crypto_generichash->init( key => $key, bytes => 64 );
 
     open(my $fh, '<:raw', $file) or die $!;
+    binmode($fh);
     while ( sysread($fh, my $buf, 4096) ) {
         # add the chunk of data
         $stream->update( $buf );
